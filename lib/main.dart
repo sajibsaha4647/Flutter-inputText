@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final formkey = GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
   final myController = TextEditingController();
   final myControllers = TextEditingController();
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Form(
-          key: formkey,
+          key: _formkey,
           child: Column(
             children: [
               Container(
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: TextFormField(
-                  onTap: (){
+                  onTap: () {
                     print(myController.text);
                   },
                   keyboardType: TextInputType.text,
@@ -107,8 +107,8 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: TextFormField(
-                  onTap: (){
-                    print(myControllers.text);
+                  onTap: () {
+                    // print(myControllers.text);
                   },
                   keyboardType: TextInputType.text,
                   style: TextStyle(color: Colors.pinkAccent),
@@ -140,25 +140,29 @@ class _HomePageState extends State<HomePage> {
                     labelStyle: TextStyle(color: Colors.black),
                     hintStyle: TextStyle(color: Color(0xFF9A9A9A)),
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "input field is empty";
+                    }
+                    return null;
+                  },
                 ),
               ),
               const SizedBox(height: 20),
               InkWell(
-                onTap: (){
-                  print(myControllers.text);
+                onTap: () {
+                  if (_formkey.currentState!.validate()) {}
                 },
                 child: Container(
                   color: Colors.blue,
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.center,
-
                   child: Text("click"),
                 ),
               ),
               const CustomTextField(
                 hintText: "new text",
               )
-
             ],
           ),
         ),
